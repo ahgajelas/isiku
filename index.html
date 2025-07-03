@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isi Hati Fadhil</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            color: #333;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 2s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background-color: #ff6b81;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .pamela-text {
+            position: absolute;
+            font-size: 2rem;
+            color: white;
+            opacity: 0;
+            pointer-events: none;
+            animation: flying 3s linear infinite;
+        }
+
+        @keyframes flying {
+            0% { 
+                transform: translateX(100vw) translateY(0) rotate(0deg); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(-100px) translateY(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .final-message {
+            font-size: 2rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Isi hati fadhil</h1>
+    <button id="btn" class="btn">Buka</button>
+
+    <div id="pamelaContainer" class="hidden">
+        <div id="pamelaText" class="pamela-text">Pamela</div>
+    </div>
+
+    <div id="finalMessage" class="final-message">ada kamu &lt;3</div>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const title = document.getElementById('title');
+        const pamelaContainer = document.getElementById('pamelaContainer');
+        const pamelaTexts = [];
+        const finalMessage = document.getElementById('finalMessage');
+
+        btn.addEventListener('click', () => {
+            document.body.style.backgroundColor = '#ff69b4';
+            pamelaContainer.classList.remove('hidden');
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const text = document.createElement('div');
+                    text.className = 'pamela-text';
+                    text.textContent = 'Pamela';
+                    text.style.left = Math.random() * 100 + 'vw';
+                    text.style.top = Math.random() * 100 + 'vh';
+                    text.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+                    text.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    pamelaContainer.appendChild(text);
+                    pamelaTexts.push(text);
+                }, Math.random() * 500);
+            }
+
+            setTimeout(() => {
+                btn.style.opacity = '0';
+                title.style.opacity = '0';
+                
+                setTimeout(() => {
+                    btn.classList.add('hidden');
+                    title.classList.add('hidden');
+                }, 500);
+            }, 1000);
+
+            setTimeout(() => {
+                pamelaTexts.forEach(text => {
+                    text.style.opacity = '0';
+                });
+                
+                setTimeout(() => {
+                    pamelaContainer.classList.add('hidden');
+                    pamelaContainer.innerHTML = '';
+                    finalMessage.style.opacity = '1';
+                }, 1000);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+
